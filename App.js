@@ -29,8 +29,10 @@ export default class App extends Component<Props> {
           onPress={() => {
             if (Platform.OS === "android") {
               //    Civic.connect()
-              Reactotron.warn("*herumph*");
-              ToastExample.show("Awesome", ToastExample.SHORT);
+              Reactotron.debug("*herumph*");
+              ToastExample.show("Awesome", ToastExample.SHORT, msg => {
+                Reactotron.debug(msg);
+              });
             } else {
               Reactotron.warn("*not implmented*");
             }
