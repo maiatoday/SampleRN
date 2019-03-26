@@ -6,31 +6,34 @@
  * @flow
  */
 
-if(__DEV__) {
-  import("./ReactotronConfig").then(() =>
-    console.log("Reactotron Configured")
-  );
+if (__DEV__) {
+  import("./ReactotronConfig").then(() => console.log("Reactotron Configured"));
 }
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View, Button } from "react-native";
 import Reactotron from "reactotron-react-native";
-
-const instructions = Platform.select({
-  ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
-  android:
-    "Double tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu"
-});
 
 type Props = {};
 export default class App extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = {text: 'Boo! 👻'};
+  }
   render() {
     Reactotron.log("hello rendering world");
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text style={styles.welcome}>Welcome to the 🔥 Sample App!</Text>
+        <Button
+          onPress={() => {
+            //    Civic.connect()
+            Reactotron.warn('*herumph*')
+          }}
+          title="Press Me"
+        />
+        <Text style={{padding: 10, fontSize: 42}}>
+          {this.state.text}
+          </Text>
       </View>
     );
   }
