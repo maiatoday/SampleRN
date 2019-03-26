@@ -10,6 +10,7 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
+import com.samplern.CustomToastPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -42,4 +43,10 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
   }
+
+  protected List<ReactPackage> getPackages() {
+    return Arrays.<ReactPackage>asList(
+            new MainReactPackage(),
+            new CustomToastPackage()); // <-- Add this line with your package name.
+}
 }

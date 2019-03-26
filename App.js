@@ -12,12 +12,13 @@ if (__DEV__) {
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View, Button } from "react-native";
 import Reactotron from "reactotron-react-native";
+import ToastExample from "./ToastExample";
 
 type Props = {};
 export default class App extends Component<Props> {
   constructor(props) {
     super(props);
-    this.state = {text: 'Boo! 👻'};
+    this.state = { text: "Boo! 👻" };
   }
   render() {
     Reactotron.log("hello rendering world");
@@ -26,14 +27,17 @@ export default class App extends Component<Props> {
         <Text style={styles.welcome}>Welcome to the 🔥 Sample App!</Text>
         <Button
           onPress={() => {
-            //    Civic.connect()
-            Reactotron.warn('*herumph*')
+            if (Platform.OS === "android") {
+              //    Civic.connect()
+              Reactotron.warn("*herumph*");
+              ToastExample.show("Awesome", ToastExample.SHORT);
+            } else {
+              Reactotron.warn("*not implmented*");
+            }
           }}
           title="Press Me"
         />
-        <Text style={{padding: 10, fontSize: 42}}>
-          {this.state.text}
-          </Text>
+        <Text style={{ padding: 10, fontSize: 42 }}>{this.state.text}</Text>
       </View>
     );
   }
