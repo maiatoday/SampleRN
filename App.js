@@ -13,6 +13,7 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View, Button } from "react-native";
 import Reactotron from "reactotron-react-native";
 import ToastExample from "./ToastExample";
+import { DeviceEventEmitter } from "react-native";
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -20,6 +21,22 @@ export default class App extends Component<Props> {
     super(props);
     this.state = { text: "Boo! 👻" };
   }
+
+  onToasterPop = event => {
+    Reactotron.debug("Event: ping toaster popped: " + event.message);
+    this.state.text = event.message;
+  };
+
+  componentDidMount() {
+    Reactotron.debug("Component mount");
+    DeviceEventEmitter.addListener("onToasterPop", this.onToasterPop);
+  }
+
+  componentWillUnmount() {
+    Reactotron.debug("Component Unmount");
+    DeviceEventEmitter.removeListener("onToasterPop")
+  }
+
   render() {
     Reactotron.log("hello rendering world");
     return (
@@ -29,12 +46,12 @@ export default class App extends Component<Props> {
           onPress={() => {
             if (Platform.OS === "android") {
               //    Civic.connect()
-              Reactotron.debug("*herumph*");
+              Reactotron.debug("*Press me pressed*");
               ToastExample.show("Awesome", ToastExample.SHORT, msg => {
                 Reactotron.debug(msg);
               });
             } else {
-              Reactotron.warn("*not implmented*");
+              Reactotron.warn("*not implemented*");
             }
           }}
           title="Press Me"
