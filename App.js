@@ -24,7 +24,7 @@ export default class App extends Component<Props> {
 
   onToasterPop = event => {
     Reactotron.debug("Event: ping toaster popped: " + event.message);
-    this.state.text = event.message;
+    this.setState({text: event.message})
   };
 
   componentDidMount() {
